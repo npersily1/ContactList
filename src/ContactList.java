@@ -9,7 +9,6 @@ public class ContactList {
 
     private ArrayList<Person> contacts;
     private Scanner input;
-
     public ContactList() {
         contacts = new ArrayList<Person>();
         input = new Scanner(System.in);
