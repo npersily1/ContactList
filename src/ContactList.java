@@ -9,6 +9,7 @@ public class ContactList {
 
     private ArrayList<Person> contacts;
     private Scanner input;
+
     public ContactList() {
         contacts = new ArrayList<Person>();
         input = new Scanner(System.in);
@@ -55,10 +56,29 @@ public class ContactList {
                 case (5):
                     printStudents();
                 case (6):
-
+                    Person temp = searchBy(6, input.nextLine());
+                    if (!temp.equals(null)) {
+                        System.out.println(temp);
+                        break;
+                    }
+                    System.out.println("No Such Person has been added");
+                    break;
                 case (7):
-
+                    Person temp = searchBy(7, input.nextLine());
+                    if (!temp.equals(null)) {
+                        System.out.println(temp);
+                        break;
+                    }
+                    System.out.println("No Such Person has been added");
+                    break;
                 case (8):
+                    Person temp = searchBy(8, input.nextLine());
+                    if (!temp.equals(null)) {
+                        System.out.println(temp);
+                        break;
+                    }
+                    System.out.println("No Such Person has been added");
+                    break;
 
             }
         }
@@ -110,32 +130,33 @@ public class ContactList {
 
     public void listBy(int sortBy) {
 
-        // Bubble sort
-        int swapCounter = 0;
-        while (swapCounter > 0) {
-            swapCounter = 0;
-            for (int i = 0; i < contacts.size() - 1; i++) {
-
-                switch (sortBy) {
-                    case (2):
+        switch (sortBy) {
+            case (2):
+                for (int i = 0; i < contacts.size(); i++) {
+                    for (int j = 0; j < contacts.size() - i - 1; j++) {
                         if (contacts.get(i).getFirstName().compareTo(contacts.get(i + 1).getFirstName()) > 0) {
                             swap(i);
-                            swapCounter += 1;
                         }
-                    case (3):
+                    }
+                }
+                break;
+            case (3):
+                for (int i = 0; i < contacts.size(); i++) {
+                    for (int j = 0; j < contacts.size() - i - 1; j++) {
                         if (contacts.get(i).getLastName().compareTo(contacts.get(i + 1).getLastName()) > 0) {
                             swap(i);
-                            swapCounter += 1;
                         }
-                    case (4):
+                    }
+                }
+                break;
+            case (4):
+                for (int i = 0; i < contacts.size(); i++) {
+                    for (int j = 0; j < contacts.size() - i - 1; j++) {
                         if (contacts.get(i).getPhone().compareTo(contacts.get(i + 1).getPhone()) > 0) {
                             swap(i);
-                            swapCounter += 1;
                         }
+                    }
                 }
-
-            }
-
         }
         printList();
     }
@@ -145,6 +166,34 @@ public class ContactList {
         contacts.set(index, contacts.get(index + 1));
         contacts.set(index + 1, temp);
 
+    }
+
+    public Person searchBy(int searchBy, String match) {
+        switch (searchBy) {
+
+            case (6):
+                for (Person p : contacts) {
+                    if (p.getFirstName().equals(match)) {
+                        return p;
+                    }
+                }
+                break;
+            case (7):
+                for (Person p : contacts) {
+                    if (p.getLastName().equals(match)) {
+                        return p;
+                    }
+                }
+                break;
+            case (8):
+                for (Person p : contacts) {
+                    if (p.getPhone().equals(match)) {
+                        return p;
+                    }
+                }
+                break;
+        }
+        return null;
     }
 
     public static void main(String[] args) {
