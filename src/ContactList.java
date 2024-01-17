@@ -7,6 +7,13 @@ import java.util.Scanner;
 // then press Enter. You can now see whitespace characters in your code.
 public class ContactList {
 
+    public static final int SORT_BY_FIRST_NAME = 2;
+    public static final int SORT_BY_LAST_NAME = 3;
+    public static final int SORT_BY_PHONE = 4;
+    public static final int SEARCH_BY_FIRST_NAME = 6;
+    public static final int SEARCH_BY_LAST_NAME = 7;
+    public static final int SEARCH_BY_PHONE = 8;
+
     private ArrayList<Person> contacts;
     private Scanner input;
 
@@ -44,37 +51,38 @@ public class ContactList {
                     break;
                 case (1):
                     addContact();
-                case (2):
-                    listBy(2);
+                case (SORT_BY_FIRST_NAME):
+                    listBy(SORT_BY_FIRST_NAME);
                     break;
-                case (3):
-                    listBy(3);
+                case (SORT_BY_LAST_NAME):
+                    listBy(SORT_BY_LAST_NAME);
                     break;
-                case (4):
-                    listBy(4);
+                case (SORT_BY_PHONE):
+                    listBy(SORT_BY_PHONE);
                     break;
                 case (5):
                     printStudents();
-                case (6):
-                    Person temp = searchBy(6, input.nextLine());
-                    if (!temp.equals(null)) {
-                        System.out.println(temp);
+                    break;
+                case (SEARCH_BY_FIRST_NAME):
+                    Person temp1 = searchBy(SEARCH_BY_FIRST_NAME, input.nextLine());
+                    if (!temp1.equals(null)) {
+                        System.out.println(temp1);
                         break;
                     }
                     System.out.println("No Such Person has been added");
                     break;
-                case (7):
-                    Person temp = searchBy(7, input.nextLine());
-                    if (!temp.equals(null)) {
-                        System.out.println(temp);
+                case (SEARCH_BY_LAST_NAME):
+                    Person temp2 = searchBy(SEARCH_BY_LAST_NAME, input.nextLine());
+                    if (!temp2.equals(null)) {
+                        System.out.println(temp2);
                         break;
                     }
                     System.out.println("No Such Person has been added");
                     break;
-                case (8):
-                    Person temp = searchBy(8, input.nextLine());
-                    if (!temp.equals(null)) {
-                        System.out.println(temp);
+                case (SEARCH_BY_PHONE):
+                    Person temp3 = searchBy(SEARCH_BY_PHONE, input.nextLine());
+                    if (!temp3.equals(null)) {
+                        System.out.println(temp3);
                         break;
                     }
                     System.out.println("No Such Person has been added");
@@ -113,6 +121,7 @@ public class ContactList {
 
     }
 
+    // Prints only students
     public void printStudents() {
 
         for (Person p : contacts) {
@@ -122,25 +131,32 @@ public class ContactList {
         }
     }
 
+    // Prints the entire list
     public void printList() {
         for (Person p : contacts) {
             System.out.println(p);
         }
     }
 
+    // Bubble sort algorithm that sort by given quality, and then prints the sorted list
     public void listBy(int sortBy) {
-
+        // Switch based on the quality you want to sort by
         switch (sortBy) {
-            case (2):
+            case (SORT_BY_FIRST_NAME):
+                // For each person in contacts
                 for (int i = 0; i < contacts.size(); i++) {
+                    // For each unsorted person
                     for (int j = 0; j < contacts.size() - i - 1; j++) {
+                        // If the current person's first name is lexographically lower than the next person
                         if (contacts.get(i).getFirstName().compareTo(contacts.get(i + 1).getFirstName()) > 0) {
+                            // Swap them
                             swap(i);
                         }
                     }
                 }
                 break;
-            case (3):
+            case (SORT_BY_LAST_NAME):
+                //same as above but with last name
                 for (int i = 0; i < contacts.size(); i++) {
                     for (int j = 0; j < contacts.size() - i - 1; j++) {
                         if (contacts.get(i).getLastName().compareTo(contacts.get(i + 1).getLastName()) > 0) {
@@ -149,7 +165,8 @@ public class ContactList {
                     }
                 }
                 break;
-            case (4):
+            case (SORT_BY_PHONE):
+                //same as above but with phone number
                 for (int i = 0; i < contacts.size(); i++) {
                     for (int j = 0; j < contacts.size() - i - 1; j++) {
                         if (contacts.get(i).getPhone().compareTo(contacts.get(i + 1).getPhone()) > 0) {
@@ -161,31 +178,40 @@ public class ContactList {
         printList();
     }
 
+    // Swaps the contact at the given index with the contact ahead of it
     public void swap(int index) {
+
         Person temp = contacts.get(index);
         contacts.set(index, contacts.get(index + 1));
         contacts.set(index + 1, temp);
 
     }
 
+    // Linear searching method that returns a person
     public Person searchBy(int searchBy, String match) {
+        // Switch based on what quality you want to search by
         switch (searchBy) {
-
-            case (6):
+            // Return that person
+            case (SEARCH_BY_FIRST_NAME):
+                // For each person in the list
                 for (Person p : contacts) {
+                    // If the current person's first name is the same as the parameter
                     if (p.getFirstName().equals(match)) {
+                        // Return that person
                         return p;
                     }
                 }
                 break;
-            case (7):
+            case (SEARCH_BY_LAST_NAME):
+                // Same as above but with last name
                 for (Person p : contacts) {
                     if (p.getLastName().equals(match)) {
                         return p;
                     }
                 }
                 break;
-            case (8):
+            case (SEARCH_BY_PHONE):
+                // Same as above but with phone number
                 for (Person p : contacts) {
                     if (p.getPhone().equals(match)) {
                         return p;
@@ -196,6 +222,7 @@ public class ContactList {
         return null;
     }
 
+    // Main function
     public static void main(String[] args) {
         ContactList c = new ContactList();
         c.run();
