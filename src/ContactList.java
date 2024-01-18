@@ -42,15 +42,20 @@ public class ContactList {
     public void run() {
         boolean condition = true;
         while (condition) {
-
+            // Print instructions and get input
+            printInstructions();
             int choice = input.nextInt();
             input.nextLine();
             switch (choice) {
+                // If input is 0 break out of the while loop
                 case (0):
                     condition = false;
                     break;
+                // If one add a contact
                 case (1):
                     addContact();
+                    break;
+                // If 2 3 or 4 sort by that quality    
                 case (SORT_BY_FIRST_NAME):
                     listBy(SORT_BY_FIRST_NAME);
                     break;
@@ -60,21 +65,27 @@ public class ContactList {
                 case (SORT_BY_PHONE):
                     listBy(SORT_BY_PHONE);
                     break;
+                // If 5 print students    
                 case (5):
                     printStudents();
                     break;
+                // If 6    
                 case (SEARCH_BY_FIRST_NAME):
+                    // Get the name they want to search by
                     System.out.println("Enter a First Name: ");
                     String firstNameWanted = input.nextLine();
+                    // Search for that person and get a pointer
                     Person temp1 = searchBy(SEARCH_BY_FIRST_NAME, firstNameWanted);
-
+                    // If that person exists print them
                     if (!(temp1 == null)) {
                         System.out.println(temp1);
                         break;
                     }
+                    // Else signify that they do not exist and break
                     System.out.println("No Such Person has been added");
                     break;
                 case (SEARCH_BY_LAST_NAME):
+                    // Same as above but with last name
                     System.out.println("Enter a Last Name: ");
                     String lastNameWanted = input.nextLine();
                     Person temp2 = searchBy(SEARCH_BY_LAST_NAME, lastNameWanted);
@@ -85,6 +96,7 @@ public class ContactList {
                     System.out.println("No Such Person has been added");
                     break;
                 case (SEARCH_BY_PHONE):
+                    // Same as above but with phone number
                     System.out.println("Enter a Phone Number: ");
                     String phoneWanted = input.nextLine();
                     Person temp3 = searchBy(SEARCH_BY_PHONE, phoneWanted);
@@ -94,18 +106,18 @@ public class ContactList {
                     }
                     System.out.println("No Such Person has been added");
                     break;
-
             }
         }
     }
 
     public void addContact() {
+        // Determine the type of person
         System.out.println("Select what type of person to add");
         System.out.println("1. Add Student ");
-        System.out.println("2. Add Teacher");
+        System.out.println("2. Add Athlete");
         int choice = input.nextInt();
         input.nextLine();
-
+        //Ask general questions that apply to all types of people
         System.out.println("Please fill in the following instructions");
         System.out.println("First Name :");
         String fname = input.nextLine();
@@ -113,24 +125,27 @@ public class ContactList {
         String lname = input.nextLine();
         System.out.println("Phone Number: ");
         String phone = input.nextLine();
+        // Depending on the type of person chosen
         if (choice == 1) {
+            // Ask about grade
             System.out.println("Grade: ");
             int grade = input.nextInt();
             input.nextLine();
+            // Create new Person
             Person p = new Student(fname, lname, phone, grade);
+            // Add to list
             contacts.add(p);
         } else {
-            System.out.println("Subject: ");
-            String subject = input.nextLine();
-            Person p = new Teacher(fname, lname, phone, subject);
+            // Same as above but with Sport/**/
+            System.out.println("Sport: ");
+            String sport = input.nextLine();
+            Person p = new Athlete(fname, lname, phone, sport);
             contacts.add(p);
         }
-
     }
 
     // Prints only students
     public void printStudents() {
-
         for (Person p : contacts) {
             if (p instanceof Student) {
                 System.out.println(p);
@@ -155,9 +170,9 @@ public class ContactList {
                     // For each unsorted person
                     for (int j = 0; j < contacts.size() - i - 1; j++) {
                         // If the current person's first name is lexographically lower than the next person
-                        if (contacts.get(i).getFirstName().compareTo(contacts.get(i + 1).getFirstName()) > 0) {
+                        if (contacts.get(j).getFirstName().compareTo(contacts.get(j + 1).getFirstName()) > 0) {
                             // Swap them
-                            swap(i);
+                            swap(j);
                         }
                     }
                 }
@@ -166,8 +181,8 @@ public class ContactList {
                 //same as above but with last name
                 for (int i = 0; i < contacts.size(); i++) {
                     for (int j = 0; j < contacts.size() - i - 1; j++) {
-                        if (contacts.get(i).getLastName().compareTo(contacts.get(i + 1).getLastName()) > 0) {
-                            swap(i);
+                        if (contacts.get(j).getLastName().compareTo(contacts.get(j + 1).getLastName()) > 0) {
+                            swap(j);
                         }
                     }
                 }
@@ -176,8 +191,8 @@ public class ContactList {
                 //same as above but with phone number
                 for (int i = 0; i < contacts.size(); i++) {
                     for (int j = 0; j < contacts.size() - i - 1; j++) {
-                        if (contacts.get(i).getPhone().compareTo(contacts.get(i + 1).getPhone()) > 0) {
-                            swap(i);
+                        if (contacts.get(j).getPhone().compareTo(contacts.get(j + 1).getPhone()) > 0) {
+                            swap(j);
                         }
                     }
                 }
