@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 //By Noah Persily
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class ContactList {
 
     public static final int SORT_BY_FIRST_NAME = 2;
@@ -13,7 +12,6 @@ public class ContactList {
     public static final int SEARCH_BY_FIRST_NAME = 6;
     public static final int SEARCH_BY_LAST_NAME = 7;
     public static final int SEARCH_BY_PHONE = 8;
-
     private ArrayList<Person> contacts;
     private Scanner input;
 
@@ -22,10 +20,12 @@ public class ContactList {
         input = new Scanner(System.in);
     }
 
+    // Getter
     public ArrayList<Person> getContacts() {
         return contacts;
     }
 
+    // Always prints those instructions
     public static void printInstructions() {
         System.out.println("Menu: ");
         System.out.println("1. Add Contact");
@@ -38,8 +38,9 @@ public class ContactList {
         System.out.println("8. Search By Phone Number");
         System.out.println(("0. Exit"));
     }
-
+    //Runs all methods in desired order
     public void run() {
+
         boolean condition = true;
         while (condition) {
             // Print instructions and get input
